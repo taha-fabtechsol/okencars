@@ -2,13 +2,28 @@ from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-from app import views
+from app import views, backoffice
 
 router = routers.DefaultRouter()
 router.register(r"user", views.UserViewSet, "user")
 router.register(r"vehicle", views.VehicleViewSet, "vehicle")
 
 router.register(r"logout", views.LogoutView, "logout")
+
+
+
+
+backofficeurl = [
+    path("login/", backoffice.LoginRequest.as_view(), name="login"),
+    path("logout/", backoffice.logout_request.as_view(), name="logout"),    
+    path("dashboard/", backoffice.Dashboard.as_view(), name="dashboard"),
+    path("users/", backoffice.User.as_view(), name="users"),
+    path("add-user/", backoffice.AddUser.as_view(), name="add-user"),
+    path("vehicles/", backoffice.Vehicle.as_view(), name="vehicles"),
+    path("add-vehicle/", backoffice.AddVehicle.as_view(), name="add-vehicle"),
+    
+]
+
 
 urlpatterns = [
     path("login/", views.LoginView.as_view(), name="api_token_auth"),
@@ -17,5 +32,7 @@ urlpatterns = [
         views.activate,
         name="activate",
     ),
-    path("", include(router.urls)),
+    path("api/", include(router.urls)),
+    path("back-office/", include(backofficeurl)),
 ]
+

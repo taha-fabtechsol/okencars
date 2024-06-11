@@ -98,7 +98,7 @@ class UserViewSet(viewsets.ModelViewSet):
             context=self.get_serializer_context(),
         ).data
         del data["password"]
-        return Response({"user": data})
+        return Response({"user": data}, status=status.HTTP_201_CREATED)
     
 
 class LogoutView(viewsets.ModelViewSet):

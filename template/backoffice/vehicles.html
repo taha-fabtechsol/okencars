@@ -1,0 +1,69 @@
+{% load static %}
+{% include 'backoffice/sidebar.html' %}
+        
+            <!-- ===== right content ======== -->
+            <section class="px-3 body-bg">
+                <div class="area-height">
+                    <div class="container-fluid">
+                        <div class=" mt-4 table-responsive main-table2">
+                            <div class="d-flex justify-content-end mb-2 p-2">
+                            <a href="/back-office/add-vehicle/" class="btn-bg btn text-white">Add Vehicles</a>
+                        </div>
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th class="p-3 text-nowrap text-white">Owner</th>
+                                        <th class="p-3 text-nowrap text-white">Make</th>
+                                        <th class="p-3 text-nowrap text-white">Model</th>
+                                        <th class="p-3 text-nowrap text-white">Year</th>
+                                        <th class="p-3 text-nowrap text-white">Vin</th>
+                                        <th class="p-3 text-nowrap text-white">License Plate Number</th>
+                                        <th class="p-3 text-nowrap text-white">category</th>
+                                        <th class="p-3 text-nowrap text-white">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-middle">
+                                    {% for vehicle in vehicles %}
+                                    <tr>
+                                        <td>
+                                            <p class="mb-0 ms-2">{% if user == vehicle.owner %} You {% else %} {{vehicle.owner.first_name}} {% endif %}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.make}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.model}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.year}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.vin}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.license_plate_number}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.category}}</p>
+                                        </td>
+                                        <td><Button class="btn btn-danger">Delete</Button></td>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<script>
+    activeTab("vehicles")
+  </script>
+
+</html>

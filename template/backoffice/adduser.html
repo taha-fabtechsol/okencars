@@ -1,0 +1,315 @@
+{% load static %} {% include 'backoffice/sidebar.html' %}
+
+<section class="px-3 body-bg">
+  <div class="area-height">
+    <div class="container-fluid">
+      <form method="post" enctype="multipart/form-data" class="p-3">
+        {% csrf_token %}
+        {% if messages %}
+            <div class="messages" style="width: max-content;">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="row">
+          <div class="col-lg-5 col-sm-8">
+            <div class="mb-2">
+              <label for="first_name" class="text-muted ms-2">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                value="{{ form.first_name }}"
+                required
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="First Name"
+                id="first_name"
+              />
+              {% if form.first_name.errors %}
+              <div class="text-danger">{{ form.first_name.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="last_name" class="text-muted ms-2">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                value="{{ form.last_name }}"
+                required
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Last Name"
+                id="last_name"
+              />
+              {% if form.last_name.errors %}
+              <div class="text-danger">{{ form.last_name.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="date_of_birth" class="text-muted ms-2"
+                >Date of Birth</label
+              >
+              <input
+                type="date"
+                name="date_of_birth"
+                value="{{ form.date_of_birth }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Date of Birth"
+                id="date_of_birth"
+              />
+              {% if form.date_of_birth.errors %}
+              <div class="text-danger">{{ form.date_of_birth.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="email" class="text-muted ms-2">Email</label>
+              <input
+                type="email"
+                name="email"
+                value="{{ form.email }}"
+                required
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Email"
+                id="email"
+              />
+              {% if form.email.errors %}
+              <div class="text-danger">{{ form.email.errors }}</div>
+              {% endif %}
+              
+            </div>
+            <div class="mb-2">
+              <label for="phone_number" class="text-muted ms-2">Contact</label>
+              <input
+                type="number"
+                name="phone_number"
+                value="{{ form.phone_number }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Contact"
+                id="phone_number"
+              />
+              {% if form.phone_number.errors %}
+              <div class="text-danger">{{ form.phone_number.errors }}</div>
+              {% endif %}
+            </div>
+            <div>
+              <label for="password" class="text-muted ms-2">Password</label>
+              <div
+                class="my-input p-3 rounded-4 bg-transparent text-muted d-flex align-items-center"
+              >
+                <input
+                  type="password"
+                  name="password"
+                  value="{{ form.password }}"
+                  required
+                  class="bg-transparent text-muted focus-none border-0 w-100"
+                  placeholder="Password"
+                  id="password"
+                />
+                <i
+                  class="bi bi-eye"
+                  id="togglePassword"
+                  onclick="togglePasswordVisibility()"
+                ></i>
+              </div>
+              {% if form.password.errors %}
+              <div class="text-danger">{{ form.password.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="country" class="text-muted ms-2">Country</label>
+              <input
+                type="text"
+                name="country"
+                value="{{ form.country }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Country"
+                id="country"
+              />
+              {% if form.country.errors %}
+              <div class="text-danger">{{ form.country.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="city" class="text-muted ms-2">City</label>
+              <input
+                type="text"
+                name="city"
+                value="{{ form.city }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="City"
+                id="city"
+              />
+              {% if form.city.errors %}
+              <div class="text-danger">{{ form.city.errors }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-lg-5 col-sm-12 mt-3 mt-md-0">
+            <div class="mb-2">
+              <label for="street_address" class="text-muted ms-2"
+                >Street Address</label
+              >
+              <input
+                type="text"
+                name="street_address"
+                value="{{ form.street_address }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Street Address"
+                id="street_address"
+              />
+              {% if form.street_address.errors %}
+              <div class="text-danger">{{ form.street_address.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="state_province" class="text-muted ms-2"
+                >State Province</label
+              >
+              <input
+                type="text"
+                name="state_province"
+                value="{{ form.state_province }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="State Province"
+                id="state_province"
+              />
+              {% if form.state_province.errors %}
+              <div class="text-danger">{{ form.state_province.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="postal_code" class="text-muted ms-2"
+                >Postal Code</label
+              >
+              <input
+                type="text"
+                name="postal_code"
+                value="{{ form.postal_code }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="Postal Code"
+                id="postal_code"
+              />
+              {% if form.postal_code.errors %}
+              <div class="text-danger">{{ form.postal_code.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="license_number" class="text-muted ms-2"
+                >License Number</label
+              >
+              <input
+                type="text"
+                name="license_number"
+                value="{{ form.license_number }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="License Number"
+                id="license_number"
+              />
+              {% if form.license_number.errors %}
+              <div class="text-danger">{{ form.license_number.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="license_issuing_country" class="text-muted ms-2"
+                >License Issue Country</label
+              >
+              <input
+                type="text"
+                name="license_issuing_country"
+                value="{{ form.license_issuing_country }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="License Issue Country"
+                id="license_issuing_country"
+              />
+              {% if form.license_issuing_country.errors %}
+              <div class="text-danger">
+                {{ form.license_issuing_country.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="license_expiry_date" class="text-muted ms-2"
+                >License Expiry Date</label
+              >
+              <input
+                type="date"
+                name="license_expiry_date"
+                value="{{ form.license_expiry_date }}"
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                placeholder="License Expiry Date"
+                id="license_expiry_date"
+              />
+              {% if form.license_expiry_date.errors %}
+              <div class="text-danger">
+                {{ form.license_expiry_date.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="role" class="ms-2 text-muted">User Type</label>
+              <select
+                class="my-input p-3 rounded-4 bg-transparent text-muted"
+                name="role"
+                id="role"
+                aria-label="Make"
+                required
+                value="{{ form.role }}"
+              >
+                <option selected>Select User type</option>
+                {% if user.role == "Admin" %}
+                <option value="Admin">Admin</option>
+                {% endif %}
+                <option value="Manager">Manager</option>
+                <option value="Owner">Owner</option>
+                <option value="Driver">Driver</option>
+              </select>
+              {% if form.role.errors %}
+              <div class="text-danger">{{ form.role.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="mb-2">
+              <label for="dp" class="ms-2 text-muted">Profile Picture</label>
+              <div class="">
+                <input
+                  type="file"
+                  name="dp"
+                  id="dp"
+                  required
+                  class="my-input p-3 rounded-4 bg-transparent text-muted d-flex justify-content-center align-items-center"
+                  style="display: none"
+                />
+                {% if form.dp.errors %}
+                <div class="text-danger">{{ form.dp.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mt-5">
+            <button
+              type="submit"
+              class="btn-bg rounded-3 border-0 py-2 px-4 text-dark"
+            >
+              Register user
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  function togglePasswordVisibility() {
+    var passwordField = document.getElementById("password");
+    var togglePassword = document.getElementById("togglePassword");
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      togglePassword.className = "bi bi-eye-slash";
+    } else {
+      passwordField.type = "password";
+      togglePassword.className = "bi bi-eye";
+    }
+  }
+
+    activeTab("users")
+</script>

@@ -74,6 +74,6 @@ class VehicleSerializer(serializers.ModelSerializer):
     
     def validate(self, attrs):
         attrs = super().validate(attrs)
-        if attrs["availability_dates_from"] < attrs["availability_dates_to"]:
-            raise serializers.ValidationError("Availability date from should be greater than availability date to")
+        if attrs["availability_dates_from"] > attrs["availability_dates_to"]:
+            raise serializers.ValidationError("Availability date to should be greater than availability date from")
         return attrs

@@ -1,0 +1,228 @@
+{% load static %}
+{% include 'backoffice/sidebar.html' %}
+    
+      <section class="body-bg px-3">
+        <div class="area-height">
+            <div class="container-fluid">
+                <h4>Dashboard</h4>
+                <div class="row mt-3">
+                    <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                        <div>
+                            <h6 class="text-center">23,437</h6>
+                            <p class="text-center">Total reach</p>
+                        </div>
+                        <div class="bg-white shadow rounded-3 p-3">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                        <div>
+                            <h6 class="text-center">12</h6>
+                            <p class="text-center">Orders</p>
+                        </div>
+                        <div class="bg-white shadow rounded-3 p-3">
+                            <canvas id="myPieChart1"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                        <div>
+                            <h6 class="text-center">44.34%</h6>
+                            <p class="text-center">Interaction rate</p>
+                        </div>
+                        <div class="bg-white shadow rounded-3 p-3">
+                            <canvas id="myPieChart2"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-sm-6 mb-2">
+                        <div>
+                            <h6 class="text-center">44.34%</h6>
+                            <p class="text-center">Interaction rate</p>
+                        </div>
+                        <div class="bg-white shadow rounded-3 p-3">
+                            <canvas id="myPieChart3"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 px-sm-3">
+                    <div class="d-flex justify-content-between flex-wrap gap-3 align-items-end">
+                      <h5>Performance</h5>
+                      <!-- <p class="mb-0">Last 7 days</p> -->
+                    </div>
+                    <div class="shadow rounded-3 bg-white mt-3">
+                        <canvas id="myLineChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+    </section>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    var data = {
+        labels: ['Alex', 'Martin', 'Johns', 'Alex', 'Hales','Adams', 'Martin', 'Johns', 'Alex', 'Hales', 'Martin', 'Johns', 'Alex', 'Hales'],
+        datasets: [{
+            label: 'Monthly Sales',
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: createGradient(),
+            data: [65, 29, 80, 51, 56, 50, 69, 80, 51, 56, 40, 29, 80, 51, 56, 20],
+            fill: true,
+            tension: 0.5
+        }]
+    };
+
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                type: 'category',
+                labels: ['', '', '', '', ''],
+                display: true,
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                beginAtZero: true,
+                display: true,
+                grid: {
+                    display: false
+                }
+            },
+        },
+    };
+
+    function createGradient() {
+        var ctx = document.getElementById('myLineChart').getContext('2d');
+        var gradient = ctx.createLinearGradient(0, 0, 0, 200);
+        gradient.addColorStop(0, '#87CEEB'); // Sky Blue
+        gradient.addColorStop(1, '#FFFFFF'); // White
+        return gradient;
+    }
+
+    var ctx = document.getElementById('myLineChart').getContext('2d');
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+</script>
+<script>
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: [2, 2, 2, 94],
+                backgroundColor: [
+                    '#3780FD',
+                    '#F3E300',
+                    '#D50202',
+                    '#8A8A8A'
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'right', // Change the position to 'left', 'top', 'bottom' as per your preference
+                labels: {
+                    fontColor: 'black', // Change the font color
+                    fontSize: 14 // Change the font size
+                }
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById('myPieChart1').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['', ''],
+            datasets: [{
+                data: [94, 2],
+                backgroundColor: [
+                    '#3780FD',
+                    '#FFFFFF'
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'right', // Change the position to 'left', 'top', 'bottom' as per your preference
+                labels: {
+                    fontColor: 'black', // Change the font color
+                    fontSize: 14 // Change the font size
+                }
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById('myPieChart2').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['', ''],
+            datasets: [{
+                data: [50,50],
+                backgroundColor: [
+                    '#3780FD',
+                    '#D50202'
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'right', // Change the position to 'left', 'top', 'bottom' as per your preference
+                labels: {
+                    fontColor: 'black', // Change the font color
+                    fontSize: 14 // Change the font size
+                }
+            }
+        }
+    });
+</script>
+<script>
+    var ctx = document.getElementById('myPieChart3').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['', '', '', ''],
+            datasets: [{
+                data: [2, 2, 2, 94],
+                backgroundColor: [
+                    '#3780FD',
+                    '#F3E300',
+                    '#D50202',
+                    '#8A8A8A'
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'right', // Change the position to 'left', 'top', 'bottom' as per your preference
+                labels: {
+                    fontColor: 'black', // Change the font color
+                    fontSize: 14 // Change the font size
+                }
+            }
+        }
+    });
+
+    activeTab("dashboard")
+</script>
+</body>
+
+</html>
