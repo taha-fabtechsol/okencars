@@ -40,7 +40,7 @@ AUTH_USER_MODEL = "app.User"
 ADMINS = [("Abbas", "fabtestac9@gmail.com")]
 SERVER_EMAIL = os.environ.get("EMAIL_HOST_USER")
 FRONTEND_ADDRESS = os.environ.get("FRONTEND_ADDRESS")
-LOGIN_URL = "/login"
+LOGIN_URL = "/back-office/login/"
 if not DEBUG:
     CSRF_TRUSTED_ORIGINS = [os.environ.get("CSRF_TRUSTED_ORIGINS")]
     CORS_ORIGIN_ALLOW_ALL = True
@@ -52,8 +52,7 @@ if SSL:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+
 # CORS_URLS_REGEX = r"^/api/.*$"
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -253,6 +252,9 @@ EMAIL_PORT = os.environ.get("EMAIL_PORT")  # for SSL port 465
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
@@ -262,3 +264,4 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
+

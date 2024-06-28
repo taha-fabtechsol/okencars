@@ -47,7 +47,7 @@ class LoginView(ObtainAuthToken):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
-        if user:
+        if user and user.role in [choices.UserRole.DRIVER, choices.UserRole.OWNER]:
             token, created = Token.objects.get_or_create(user=user)
             return Response(
                 {"user": serializers.ListUserSerializer(user).data, "token": token.key},
@@ -126,8 +126,8 @@ class VehicleViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         queryset = models.Vehicle.objects.all()
-        if user.role == choices.UserRole.OWNER:
-            return queryset.filter(owner=user)
+        # if user.role == choices.UserRole.OWNER:
+        #     return queryset.filter(owner=user)
         return queryset
     
     def perform_create(self, serializer):

@@ -2,29 +2,33 @@
 {% include 'backoffice/sidebar.html' %}
         
             <!-- ===== right content ======== -->
-            <section class="px-3 body-bg">
+            <div class="right-content ms-auto px-md-4" style="background-color: #e5f1f0 !important;">
                 <div class="area-height">
                     <div class="container-fluid">
                         <div class=" mt-4 table-responsive main-table2">
                             <div class="d-flex justify-content-end mb-2 p-2">
-                            <a href="/back-office/add-user/" class="btn-bg btn text-white">Add User</a>
+                            <a href="/back-office/add-user/" class="btn btn-secondary text-white">Add User</a>
                         </div>
-                            <table class="table ">
+                            <table class="table " style="border-collapse: unset;">
                                 <thead>
                                     <tr>
-                                        <th class="p-3 text-nowrap text-white">Image</th>
-                                        <th class="p-3 text-nowrap text-white">User Name</th>
-                                        <th class="p-3 text-nowrap text-white">E-mail</th>
-                                        <th class="p-3 text-nowrap text-white">Role</th>
-                                        <th class="p-3 text-nowrap text-white">Contact</th>
-                                        <th class="p-3 text-nowrap text-white">Action</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Image</th>
+                                        <th class="p-3 text-nowrap text-black border-0">User Name</th>
+                                        <th class="p-3 text-nowrap text-black border-0">E-mail</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Role</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Contact</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
                                     {% for user in users %}
-                                    <tr>
+                                    <tr class="border-0" style="border-color: white !important;">
                                         <td>
-                                            <img src={{user.dp.url}} alt="" class="kfc-img">
+                                            {% if user.dp %}
+                                            <img src="{{user.dp.url}}" alt="" class="kfc-img">
+                                            {% else %}
+                                            <img src="{% static 'img/user-icon.png' %}" alt="" class="kfc-img">
+                                            {% endif %}
                                         </td>
                                         <td>
                                             <p class="mb-0 ms-2">{{user.first_name}} {{user.last_name}}</p>
@@ -34,7 +38,11 @@
                                             <p class="mb-0 text-start">{{user.role}}</p>
                                         </td>
                                         <td>{{user.phone_number}}</td>
-                                        <td><Button class="btn btn-danger">Delete</Button></td>
+                                        <td>
+                                            <div class="d-flex gap-2 justify-content-center">
+                                                <Button class="btn btn-success">Modify</Button>
+                                                <Button class="btn btn-danger">Delete</Button>
+                                            </div>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -43,9 +51,9 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </section>
-    </section>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

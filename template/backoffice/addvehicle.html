@@ -1,247 +1,103 @@
 {% load static %} {% include 'backoffice/sidebar.html' %}
 
-<section class="px-3 body-bg">
+<div class="right-content ms-auto px-md-4" style="background-color: #e5f1f0 !important;">
   <div class="area-height">
-    <div class="container-fluid">
-     
-      <form method="post" enctype="multipart/form-data" class="p-3">
-        {% csrf_token %}
-        {% if messages %}
-            <div class="messages" style="width: max-content;">
-                {% for message in messages %}
-                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="mb-3">
-                    <label for="make" class="form-label ms-2 text-muted">Make</label>
-                    <input type="text" name="make" value="{{ form.make.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="make" placeholder="Make"/>
-                    {% if form.make.errors %}
-                        <div class="text-danger">{{ form.make.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="model" class="form-label ms-2 text-muted">Model</label>
-                    <input type="text" name="model" value="{{ form.model.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="model" placeholder="Model"/>
-                    {% if form.model.errors %}
-                        <div class="text-danger">{{ form.model.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="vin" class="form-label ms-2 text-muted">Vehicle Identification Number (VIN)</label>
-                    <input type="text" name="vin" value="{{ form.vin.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="vin" placeholder="VIN"/>
-                    {% if form.vin.errors %}
-                        <div class="text-danger">{{ form.vin.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="license_plate_number" class="form-label ms-2 text-muted">License Plate Number</label>
-                    <input type="text" name="license_plate_number" value="{{ form.license_plate_number.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="license_plate_number" placeholder="License Plate Number"/>
-                    {% if form.license_plate_number.errors %}
-                        <div class="text-danger">{{ form.license_plate_number.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label ms-2 text-muted">Category/Type</label>
-                    <select name="category" value="{{ form.category.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:17px" id="category">
-                        <option value="Sedan">Sedan</option>
-                        <option value="SUV">SUV</option>
-                        <option value="Truck">Truck</option>
-                    </select>
-                    {% if form.category.errors %}
-                        <div class="text-danger">{{ form.category.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="number_of_seats" class="form-label ms-2 text-muted">Number of Seats</label>
-                    <input type="number" name="number_of_seats" value="{{ form.number_of_seats.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="number_of_seats" placeholder="Number of Seats"/>
-                    {% if form.number_of_seats.errors %}
-                        <div class="text-danger">{{ form.number_of_seats.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="year" class="form-label ms-2 text-muted">Year</label>
-                    <input type="number" name="year" value="{{ form.year.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="year" placeholder="Year"/>
-                    {% if form.year.errors %}
-                        <div class="text-danger">{{ form.year.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="transmission_type" class="form-label ms-2 text-muted">Transmission Type</label>
-                    <select name="transmission_type" value="{{ form.transmission_type.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:17px" id="transmission_type">
-                        <option selected value="Automatic">Automatic</option>
-                        <option value="Manual">Manual</option>
-                    </select>
-                    {% if form.transmission_type.errors %}
-                        <div class="text-danger">{{ form.transmission_type.errors }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="mb-3">
-                    <label for="fuel_type" class="form-label ms-2 text-muted">Fuel Type</label>
-                    <select name="fuel_type" value="{{ form.fuel_type.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:19px" id="fuel_type">
-                        <option selected value="Gasoline">Gasoline</option>
-                        <option value="Diesel">Diesel</option>
-                        <option value="Electric">Electric</option>
-                    </select>
-                    {% if form.fuel_type.errors %}
-                        <div class="text-danger">{{ form.fuel_type.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="mileage" class="form-label ms-2 text-muted">Mileage</label>
-                    <input type="number" name="mileage" value="{{ form.mileage.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="mileage" placeholder="Mileage"/>
-                    {% if form.mileage.errors %}
-                        <div class="text-danger">{{ form.mileage.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="color" class="form-label ms-2 text-muted">Color</label>
-                    <input type="text" name="color" value="{{ form.color.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="color" placeholder="Color"/>
-                    {% if form.color.errors %}
-                        <div class="text-danger">{{ form.color.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="rental_price_per_day" class="form-label ms-2 text-muted">Rental Price per Day</label>
-                    <input type="number" name="rental_price_per_day" value="{{ form.rental_price_per_day.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="rental_price_per_day" placeholder="Rental Price per Day"/>
-                    {% if form.rental_price_per_day.errors %}
-                        <div class="text-danger">{{ form.rental_price_per_day.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="location_pickup" class="form-label ms-2 text-muted">Location Pickup</label>
-                    <input type="text" name="location_pickup" value="{{ form.location_pickup.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="location_pickup" placeholder="Location Pickup"/>
-                    {% if form.location_pickup.errors %}
-                        <div class="text-danger">{{ form.location_pickup.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="location_dropoff" class="form-label ms-2 text-muted">Location Drop-off</label>
-                    <input type="text" name="location_dropoff" value="{{ form.location_dropoff.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="location_dropoff" placeholder="Location Drop-off"/>
-                    {% if form.location_dropoff.errors %}
-                        <div class="text-danger">{{ form.location_dropoff.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="availability_dates_from" class="form-label ms-2 text-muted">Availability From</label>
-                    <input type="date" name="availability_dates_from" min="{{ today }}" value="{{ form.availability_dates_from.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="availability_dates_from"/>
-                    {% if form.availability_dates_from.errors %}
-                        <div class="text-danger">{{ form.availability_dates_from.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="availability_dates_to" class="form-label ms-2 text-muted">Availability To</label>
-                    <input type="date" name="availability_dates_to" min="{{ today }}" value="{{ form.availability_dates_to.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="availability_dates_to"/>
-                    {% if form.availability_dates_to.errors %}
-                        <div class="text-danger">{{ form.availability_dates_to.errors }}</div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <hr />
-        <h4>Insurance Information</h4>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="mb-3">
-                    <label for="insurance_provider" class="form-label ms-2 text-muted">Insurance Provider</label>
-                    <input type="text" name="insurance_provider" value="{{ form.insurance_provider.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="insurance_provider"/>
-                    {% if form.insurance_provider.errors %}
-                        <div class="text-danger">{{ form.insurance_provider.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="insurance_policy_number" class="form-label ms-2 text-muted">Insurance Policy Number</label>
-                    <input type="text" name="insurance_policy_number" value="{{ form.insurance_policy_number.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="insurance_policy_number"/>
-                    {% if form.insurance_policy_number.errors %}
-                        <div class="text-danger">{{ form.insurance_policy_number.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="insurance_expiry_date" class="form-label ms-2 text-muted">Insurance Expiry Date</label>
-                    <input type="date" name="insurance_expiry_date" value="{{ form.insurance_expiry_date.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="insurance_expiry_date"/>
-                    {% if form.insurance_expiry_date.errors %}
-                        <div class="text-danger">{{ form.insurance_expiry_date.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="coverage_type" class="form-label ms-2 text-muted">Coverage Type</label>
-                    <select name="coverage_type" value="{{ form.coverage_type.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:17px" id="coverage_type">
-                        <option value="Comprehensive">Comprehensive</option>
-                        <option value="Collision">Collision</option>
-                        <option value="Liability">Liability</option>
-                    </select>
-                    {% if form.coverage_type.errors %}
-                        <div class="text-danger">{{ form.coverage_type.errors }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="mb-3">
-                    <label for="coverage_limits" class="form-label ms-2 text-muted">Coverage Limits</label>
-                    <select name="coverage_limits" value="{{ form.coverage_limits.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:17px" id="coverage_limits">
-                        <option value="Bodily Injury">Bodily Injury</option>
-                        <option value="Property Damage">Property Damage</option>
-                    </select>
-                    {% if form.coverage_limits.errors %}
-                        <div class="text-danger">{{ form.coverage_limits.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="deductible_amount" class="form-label ms-2 text-muted">Deductible Amount</label>
-                    <input type="number" name="deductible_amount" value="{{ form.deductible_amount.value }}" class="my-input p-3 rounded-4 bg-transparent text-muted" id="deductible_amount"/>
-                    {% if form.deductible_amount.errors %}
-                        <div class="text-danger">{{ form.deductible_amount.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="roadside_assistance" class="form-label ms-2 text-muted">Roadside Assistance Included</label>
-                    <select name="roadside_assistance" value="{{ form.roadside_assistance.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:17px" id="roadside_assistance">
-                        <option value="True">Yes</option>
-                        <option value="False">No</option>
-                    </select>
-                    {% if form.roadside_assistance.errors %}
-                        <div class="text-danger">{{ form.roadside_assistance.errors }}</div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <label for="rental_car_reimbursement" class="form-label ms-2 text-muted">Rental Car Reimbursement Included</label>
-                    <select name="rental_car_reimbursement" value="{{ form.rental_car_reimbursement.value }}" class="my-input rounded-4 bg-transparent text-muted" style="padding:17px" id="rental_car_reimbursement">
-                        <option value="True">Yes</option>
-                        <option value="False">No</option>
-                    </select>
-                    {% if form.rental_car_reimbursement.errors %}
-                        <div class="text-danger">{{ form.rental_car_reimbursement.errors }}</div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="mb-3">
-            <label for="additional_features" class="form-label ms-2 text-muted">Additional Features</label>
-            <textarea name="additional_features" class="my-input p-3 rounded-4 bg-transparent text-muted" id="additional_features" rows="3">{{ form.additional_features.value }}</textarea>
-            {% if form.additional_features.errors %}
-                <div class="text-danger">{{ form.additional_features.errors }}</div>
-            {% endif %}
-        </div>
-        <div class='row'>
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>
-      
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="left">
+        <h2>Add Vehicle</h2>
+        <p>We'll employ these requirement details to accurately track your Vehicle.</p>
     </div>
+    <div class="right p-3">
+        <button class="btn btn-secondary">Save Vehicle</button>
+    </div>
+    </div>
+        <form class="mt-2">
+                <h4>Vehicle Details</h4>
+            <div class="row">
+                <div class="col-4">
+                    <div class="d-flex flex-column">
+                    <label for="">Vehicle Type</label>
+                    <select name="type" class="form-control" style="background-color: #eaf9f8;" id="">
+                        <option value=""></option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="d-flex flex-column">
+                    <label for="">Vehicle Number</label>
+                    <select name="type" class="form-control" style="background-color: #eaf9f8;" id="">
+                        <option value=""></option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="d-flex flex-column">
+                    <label for="">Purchasing Date</label>
+                    <input type="date" class="form-control">
+                </div>
+                </div>
+
+                <div class="col-6 mt-3">
+                    <div class="d-flex flex-column">
+                    <label for="">Licensee Number</label>
+                    <input type="text" name="" id="" class="form-control">
+                </div>
+                </div>
+
+
+                <div class="col-6 mt-3">
+                    <div class="d-flex flex-column">
+                    <label for="">Registration ID</label>
+                    <input type="text" name="" id="" class="form-control">
+                </div>
+                </div>
+
+
+                <div class="col-4 mt-3">
+                    <div class="d-flex flex-column">
+                    <label for="">Year</label>
+                    <input type="text" name="" id="" class="form-control">
+                </div>
+                </div>
+
+
+                <div class="col-4 mt-3">
+                    <div class="d-flex flex-column">
+                    <label for="">Make</label>
+                    <input type="text" name="" id="" class="form-control">
+                </div>
+                </div>
+
+
+
+                <div class="col-4 mt-3">
+                    <div class="d-flex flex-column">
+                    <label for="">Model</label>
+                    <input type="text" name="" id="" class="form-control">
+                </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </div>
-</section>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
     activeTab("vehicles")
   </script>
-
+<style>
+    .form-control{
+        background: #eaf9f8;
+    }
+</style>
 </html>

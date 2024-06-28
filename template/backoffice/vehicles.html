@@ -2,24 +2,30 @@
 {% include 'backoffice/sidebar.html' %}
         
             <!-- ===== right content ======== -->
-            <section class="px-3 body-bg">
+            <div class="right-content ms-auto px-md-4" style="background-color: #e5f1f0 !important;">
                 <div class="area-height">
                     <div class="container-fluid">
                         <div class=" mt-4 table-responsive main-table2">
-                            <div class="d-flex justify-content-end mb-2 p-2">
-                            <a href="/back-office/add-vehicle/" class="btn-bg btn text-white">Add Vehicles</a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="">
+                                        <h1>Vehicle List</h1>
+                                        <p>Your all vehicles are listed bellow</p>
+                                    </div>
+                                    <div class="p-3">
+                                        <a href="/back-office/add-vehicle/" class="btn-secondary btn text-white">Add Vehicles</a>
+                                    </div>
                         </div>
-                            <table class="table ">
+                            <table class="table " style="border-collapse: unset;">
                                 <thead>
                                     <tr>
-                                        <th class="p-3 text-nowrap text-white">Owner</th>
-                                        <th class="p-3 text-nowrap text-white">Make</th>
-                                        <th class="p-3 text-nowrap text-white">Model</th>
-                                        <th class="p-3 text-nowrap text-white">Year</th>
-                                        <th class="p-3 text-nowrap text-white">Vin</th>
-                                        <th class="p-3 text-nowrap text-white">License Plate Number</th>
-                                        <th class="p-3 text-nowrap text-white">category</th>
-                                        <th class="p-3 text-nowrap text-white">Action</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Owner</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Make</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Model</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Year</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Vin</th>
+                                        <th class="p-3 text-nowrap text-black border-0">License Plate Number</th>
+                                        <th class="p-3 text-nowrap text-black border-0">category</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
@@ -46,7 +52,11 @@
                                         <td>
                                             <p class="mb-0 ms-2">{{vehicle.category}}</p>
                                         </td>
-                                        <td><Button class="btn btn-danger">Delete</Button></td>
+                                        <td>
+                                            <div class="d-flex gap-2 justify-content-center">
+                                                <Button class="btn btn-success">Modify</Button>
+                                                <div><Button class="btn btn-danger">Delete</Button>
+                                            </div>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -55,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </section>
     </section>
 

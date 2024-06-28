@@ -10,6 +10,9 @@ router.register(r"vehicle", views.VehicleViewSet, "vehicle")
 
 router.register(r"logout", views.LogoutView, "logout")
 
+frontofficeurl = router.urls + [
+    path("login/", views.LoginView.as_view(), name="api_token_auth"),
+]
 
 
 
@@ -26,13 +29,13 @@ backofficeurl = [
 
 
 urlpatterns = [
-    path("login/", views.LoginView.as_view(), name="api_token_auth"),
+    path("", backoffice.RedirectView.as_view(), name="login"),
     path(
         r"^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$",
         views.activate,
         name="activate",
     ),
-    path("api/", include(router.urls)),
+    path("api/", include(frontofficeurl)),
     path("back-office/", include(backofficeurl)),
 ]
 

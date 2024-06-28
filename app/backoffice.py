@@ -69,7 +69,7 @@ class logout_request(View):
         logout(request)
         messages.info(request, "You have successfully logged out.")
         return redirect("/back-office/login/")
-
+@method_decorator(login_required, name='dispatch')
 class Dashboard(View):
     template_name = "backoffice/dashboard.html"
     context = {}
@@ -80,7 +80,7 @@ class Dashboard(View):
             request=request, template_name=self.template_name, context=context
         )
         
-        
+@method_decorator(login_required, name='dispatch')
 class User(View):
     template_name = "backoffice/users.html"
     context = {}
@@ -95,15 +95,14 @@ class User(View):
             request=request, template_name=self.template_name, context=context
         )
         
-        
+@method_decorator(login_required, name='dispatch')        
 class AddUser(View):
     template_name = "backoffice/adduser.html"
     context = {}
     
     def get(self, request):
-        context = self.context
         return render(
-            request=request, template_name=self.template_name, context=context
+            request=request, template_name=self.template_name
         )
         
     def post(self, request):
@@ -121,7 +120,8 @@ class AddUser(View):
             form = forms.NewUserForm()
 
         return render(request=request, template_name=self.template_name, context={'form': form })
-        
+
+@method_decorator(login_required, name='dispatch')        
 class Vehicle(View):
     template_name = "backoffice/vehicles.html"
     context = {}
@@ -136,7 +136,10 @@ class Vehicle(View):
             request=request, template_name=self.template_name, context=context
         )
         
-        
+class RedirectView(View):
+    def get(self, request):
+        return redirect("/back-office/login/")
+@method_decorator(login_required, name='dispatch')
 class AddVehicle(View):
     template_name = "backoffice/addvehicle.html"
     context = {}
@@ -153,7 +156,9 @@ class AddVehicle(View):
             vehicle.owner = request.user
             vehicle.save()
             messages.success(request, "Successfully added the Vehicle.")
-            form = forms.VehicleForm()
+            return render(
+                request=request, template_name=self.template_name
+            )
         else:
             form = form
         return render(

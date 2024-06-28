@@ -4,7 +4,7 @@ services:
   okencars:
     build: .
     container_name: "okencars"
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"x
     volumes:
       - ./:/usr/src/app/
     ports:

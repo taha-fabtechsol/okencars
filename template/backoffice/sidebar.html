@@ -12,64 +12,83 @@
   <link rel="stylesheet" href="{% static 'css/main2.css' %}" />
   <script src="{% static 'js/main.js' %}"></script>
   <title>Dashboard</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
-  <section class="main-side vh-100 position-relative">
-    <div id="sidebar-container" class="sidebar-main vh-100 side-shadow">
-      <section class>
-        <div class="main-flow d-flex flex-column">
-          <div class="position-relative main-1">
-            <div class="side-1">
-              <div class="x-mark">
-                <i class="bi bi-x-circle text-dark"></i>
+    <style>
+      p ,h1,h2,h3,h4,h5,h6{
+        color: black !important;
+      }
+        .dropdown-menu.show{
+    background-color: #FA7F71;
+    position: absolute;
+    inset: 8px auto auto 0px !important;
+    margin: 0px;
+    transform: translate(0px, 34.4444px);
+    width: 100%;
+    }
+    .dropdown-item{
+    color: #fff;
+    }
+        a.dropdown-item:hover{
+            background-color: transparent;
+            color: #fff;
+            
+        }
+        @media screen and (max-width: 768px){
+            .sidebar{
+                display: none
+            }
+        }
+    </style>
+    <!-- ============================= Start ================================  -->
+    <section class="dashboard-sec">
+      <div class="container-fluid">
+          <div class="row bg-white border px-3 d-md-flex d-block align-items-center justify-content-between">
+              <div class="col-md-6 px-2 py-2 justify-content-start">
+                  <h5 class="ff-rubik text-black fw-normal mb-0">Welcome to the Admin</h5>
               </div>
-              <div>
-                <h4 class="text-center pt-3">OkenCars</h4>
+              <div class="col-md-6 d-flex justify-content-end flex-wrap align-items-center p-2">
+                  <div class="ms-sm-4 ms-3 position-relative d-flex align-items-center gap-3">
+                      <h6 class="fw-normal ff-rubik mb-0">{{user.first_name}} {{user.last_name}}</h6>
+                      <img src="{{user.dp.url}}" alt="" class="img-pro">
+                  </div>
               </div>
-              <div class="text-center">
-                <a href="#"><img src="{% static 'img/user-img.png' %}" alt class="user-img" /></a>
-              </div>
-              <div class="mt-2 text-center border-orng pb-4">
-                <a href="#" class="font-semi text-dark text-decoration-none">
-                  <p class="mb-0">{{user.first_name}} {{user.last_name}} </p>
-                </a>
-              </div>
-            </div>
-            <div class="p-2 side-2">
-                <ul class="list-unstyled list-over">
-                    <li><a id="dashboard" href="/back-office/dashboard/" class="dashboard-style "><img src="{% static 'img/Path-1.png' %}" alt=""><p class="mb-0">Dashboard</p></a></li>
-                    <li><a id="users" href="/back-office/users/" class="dashboard-style"><img src="{% static 'img/user-gear-1.png' %}" alt=""><p class="mb-0">Manage Users</p></a></li>
-                    <li><a id="vehicles" href="/back-office/vehicles/" class="dashboard-style"><img src="{% static 'img/employee-man-1.png' %}" alt=""><p class="mb-0">Manage Vehicles</p></a></li>
-                    <!-- <li><a href="" class="dashboard-style"><img src="{% static 'img/history.png' %}" alt=""><p class="mb-0">Manage History</p></a></li>
-                    <li><a href="" class="dashboard-style"><img src="{% static 'img/benefit-1.png' %}" alt=""><p class="mb-0">Sales Audit</p></a></li>
-                    <li><a href="" class="dashboard-style"><img src="{% static 'img/ticket-1.png' %}" alt=""><p class="mb-0">Ticketing</p></a></li>
-                    <li><a href=" class="dashboard-style"><img src="{% static 'img/Path-3.png' %}" alt=""><p class="mb-0">Settings</p></a></li> -->
-                </ul>
-            </div>
           </div>
-          <div class="p-2 main-2">
-            <a href="/back-office/logout/" class="text-decoration-none pink2-bg d-block p-2 rounded-3 text-dark"><img
-                src="{% static 'img/sign-out-alt.png' %}" alt="" class="me-2">Logout</a>
-          </div>
-        </div>
-      </section>
-    </div>
-    <section class="navbar-main">
-      <div class="orng-bg shadow py-2 px-sm-3 px-2 pe-lg-5 position-relative">
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="d-flex align-items-center">
-            <i class="bi bi-list text-black font-30 nav-on"></i>
-            <h5 class="mb-0 fn-nav p-3 text-center">
-              <!-- <img src="{% static 'img/logo-2.png' %}" alt="" class="logo-2 me-3" /> -->
-              {{user.role}}
-            </h5>
-          </div>
-        </div>
       </div>
+  </section>
+    <!-- ----------------------side bar-----------------  -->
+    <section class="main-tem ">
+        <div class="sidebar px-3 bg-white border" style="border-bottom: none !important; border-right: none !important;">
+            <div class="h-100 insidebar">
+                <!-- ------------------icon--------------------- -->
+                
 
-<script>
-  function activeTab(tadid){
+                <div class="side-nav d-flex flex-column justify-content-center">
+                  
+                    <ul class="list-unstyled">
+                      <!-- <div class="mt-4" style="color: black;font-weight: 500 ;font-size: 20px;">Menu</div> -->
+                        <li><a id="dashboard" href="/back-office/dashboard/" style="font-size: 18px;" class="dashboard-style mt-4 "><img src="{% static 'img/dashboard-icon.png' %}" alt=""><p class="dashboard-p mb-0">Dashboard</p></a></li>
+                        <li><a id="users" href="/back-office/users/" style="font-size: 18px;" class="dashboard-style"><img src="{% static 'img/user-gear-1.png' %}" alt=""><p class="mb-0 dashboard-p">Users</p></a></li>
+                        <!-- <div class="mt-2" style="color: black;font-weight: 500 ;font-size: 20px;">Transportation</div> -->
+                        <li><a id="vehicles" href="/back-office/vehicles/" style="font-size: 18px;" class="dashboard-style"><i class="fa-solid fa-car"></i><p class="mb-0 ps-1 dashboard-p"> Vehicles</p></a></li>
+                        <li style="font-size: 18px;" class="dashboard-style" id="" ><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="/logout" class=" font-semi text-decoration-none text-black my-2 d-block ff-rubik dashboard-p">Log Out</a></li>
+                    </ul> 
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="px-3">
+            <i class="fas fa-bars togg-btn text-dark position-relative me-2 mt-1"></i>
+        </div>
+        
+        <script>
+        function activeTab(tadid){
     document.getElementById(tadid).classList.add("active")
   }
-</script>
+    </script>
+
+  
+

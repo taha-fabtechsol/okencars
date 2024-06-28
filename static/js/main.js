@@ -1,12 +1,3 @@
-// --------- sidebar ---------
-$(document).ready(function()  {
-    $(".x-mark").click(function() {
-        $(".sidebar-main").hide();
-    });
-    $(".nav-on").click(function() {
-        $(".sidebar-main").show();
-    });
-});
 
 
 document.getElementById('togglePassword').addEventListener('click', function() {
@@ -25,3 +16,15 @@ document.getElementById('togglePassword').addEventListener('click', function() {
 });
 
 
+    // ----------responsive sidebar--------
+$(document).ready(function() {
+    $(".togg-btn").click(function() {
+        $(".sidebar").css("display", "block");
+    });
+});
+
+$(document).ready(function() {
+    $(".cross-icon").click(function() {
+        $(".sidebar").css("display", "none");
+    });
+});

@@ -1,6 +1,6 @@
 {% load static %} {% include 'backoffice/sidebar.html' %}
 
-<section class="px-3 body-bg">
+<div class="right-content ms-auto px-md-4" style="background-color: #e5f1f0 !important;">
   <div class="area-height">
     <div class="container-fluid">
       <form method="post" enctype="multipart/form-data" class="p-3">
@@ -254,7 +254,6 @@
                 required
                 value="{{ form.role }}"
               >
-                <option selected>Select User type</option>
                 {% if user.role == "Admin" %}
                 <option value="Admin">Admin</option>
                 {% endif %}
@@ -297,7 +296,7 @@
       </form>
     </div>
   </div>
-</section>
+</div>
 <script>
   function togglePasswordVisibility() {
     var passwordField = document.getElementById("password");
