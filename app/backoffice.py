@@ -126,8 +126,11 @@ class Vehicle(View):
     template_name = "backoffice/vehicles.html"
     context = {}
     
-    def get(self, request):
+    def get(self, request, id=None):
         context = self.context
+        if id:
+            models.Vehicle.objects.get(id=id).delete()
+            return redirect("/back-office/vehicles/")
         vehicles = models.Vehicle.objects.all()
         if request.user.role == choices.UserRole.MANAGER:
             vehicles = vehicles.filter(owner=request.user)
@@ -151,10 +154,17 @@ class AddVehicle(View):
     
     def post(self, request):
         form = forms.VehicleForm(request.POST)
+        if not "images" in request.FILES.keys() or not request.FILES.getlist("images"):
+            messages.error(request ,"Please select atleast 1 file.")
+            return render(
+                request=request, template_name=self.template_name
+            )
         if form.is_valid():
             vehicle = form.save(commit=False)
             vehicle.owner = request.user
             vehicle.save()
+            for image in request.FILES.getlist("images"):
+                models.VehicleImages.objects.create(vehicle=vehicle, image=image)
             messages.success(request, "Successfully added the Vehicle.")
             return render(
                 request=request, template_name=self.template_name
@@ -181,6 +191,6 @@ class ModifyVehicle(View):
     
     def post(self, request):
         return render(
-        request=request, template_name=self.template_name, context={'form': form }
+        request=request, template_name=self.template_name
     )
             

@@ -8,18 +8,28 @@
         <h2>Add Vehicle</h2>
         <p>We'll employ these requirement details to accurately track your Vehicle.</p>
     </div>
-    <div class="right p-3">
-        <button id="save-btn" class="btn btn-secondary">Save Vehicle</button>
-    </div>
-    </div>
-        <form class="mt-2" id="vehicleForm" method="post" enctype="multipart/form-data">
+</div>
+<form class="mt-2" id="vehicleForm" method="post" enctype="multipart/form-data">
+    {% if messages %}
+        <div class="messages mt-2 mb-2">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="d-flex justify-content-between">
+
+        <h4>Vehicle Details</h4>
+        <div class="right p-3">
+            <button type="submit" id="save-btn" class="btn btn-secondary">Save Vehicle</button>
+        </div>
+    </div>    
             {% csrf_token %}
-                <h4>Vehicle Details</h4>
             <div class="row">
                 <div class="col-4">
                     <div class="d-flex flex-column">
                     <label for="">Vehicle Type</label>
-                    <select name="type" class="form-control" style="background-color: #eaf9f8;" id="">
+                    <select name="type" class="form-control" >
                         <option value="SUV">SUV</option>
                         <option value="Sedan">Sedan</option>
                         <option value="Truck">Truck</option>
@@ -32,21 +42,21 @@
                 <div class="col-4">
                     <div class="d-flex flex-column">
                     <label for="">Vehicle Number</label>
-                    <input type="text" name="number" class="form-control">
+                    <input required type="text" name="number" class="form-control">
                 </div>
                 </div>
 
                 <div class="col-4">
                     <div class="d-flex flex-column">
                     <label for="">Daily Rent</label>
-                    <input type="number" name="rent" class="form-control">
+                    <input required type="number" name="rent" class="form-control">
                 </div>
                 </div>
 
                 <div class="col-6 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Licensee Number</label>
-                    <input type="text" name="lic_number" id="" class="form-control">
+                    <input required type="text" name="lic_number" id="" class="form-control">
                 </div>
                 </div>
 
@@ -54,7 +64,7 @@
                 <div class="col-6 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Registration ID</label>
-                    <input type="text" name="res_id" id="" class="form-control">
+                    <input required type="text" name="res_id" id="" class="form-control">
                 </div>
                 </div>
 
@@ -62,7 +72,7 @@
                 <div class="col-4 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Year</label>
-                    <input type="text" name="year" id="" class="form-control">
+                    <input required type="text" name="year" id="" class="form-control">
                 </div>
                 </div>
 
@@ -70,7 +80,7 @@
                 <div class="col-4 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Make</label>
-                    <input type="text" name="make" id="" class="form-control">
+                    <input required type="text" name="make" id="" class="form-control">
                 </div>
                 </div>
 
@@ -79,7 +89,7 @@
                 <div class="col-4 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Model</label>
-                    <input type="text" name="model" id="" class="form-control">
+                    <input required type="text" name="model" id="" class="form-control">
                 </div>
                 </div>
                 
@@ -110,7 +120,7 @@
                 <div class="col-4 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Mileage</label>
-                    <input type="number" name="mileage" id="" class="form-control">
+                    <input required type="number" name="mileage" id="" class="form-control">
                 </div>
                 </div>
             </div>
@@ -125,9 +135,9 @@
                         </div>
                         <p id="dp_error" class="error_message"></p>
                         </label>
-                        <input multiple onchange="loadFile2(event)" class="form-control shadow-none" type="file" name="dp" id="fileImg" style="width: 200px;" accept="image/*">
+                    </div>
                 </div>
-            </div>
+                <input multiple hidden  required onchange="loadFile2(event)" class="form-control shadow-none" type="file" name="images" id="fileImg" style="width: 200px;" accept="image/*">
         </form>
     </div>
 
@@ -141,36 +151,48 @@
 </body>
 <script>
     // activeTab("vehicles")
-    document.getElementById("save-btn").addEventListener("click", () =>{
-        document.getElementById("vehicleForm").submit()
-    })
+    let all_uploaded_images = document.getElementsByClassName("uploaded-images")
     function loadFile2(event) {
         if (event.target.files.length > 4) {
-        alert("You can only upload a maximum of 4 files.");
-        event.target.value = ""; // Clear the input
-        return
-    }
-    const imagesRow = document.getElementById("images_row");
-    
-    for (let index = 0; index < event.target.files.length; index++) {
-        const file =  URL.createObjectURL(event.target.files[index])
+            alert("You can only upload a maximum of 4 files.");
+            event.target.value = ""; 
+            
+            return
+        }
         
-            imagesRow.appendChild("afterbegin" ,`
-            <div class="col-2">
-            <img src="${file}" width="150px" height="150px" style="object-fit: cover;" alt="">
-        </div>
-        `)
-    }}
+
+        const imagesRow = document.getElementById("images_row");
+        imagesRow.innerHTML = ""
+        for (let index = 0; index < event.target.files.length; index++) {
+            const file =  URL.createObjectURL(event.target.files[index])
+            console.log("ok")
+                imagesRow.innerHTML += `
+                <div class="col-2 mt-4 uploaded-images">
+                <img src="${file}" width="150px" height="150px" style="object-fit: cover;" alt="">
+            </div>
+            `
+        }
+        imagesRow.innerHTML += `<div class="col-2">
+                        <h6 class="fw-bold">Upload Image</h6>
+                        <label for="fileImg" class="form-label">
+                          <div id="uploadBox" class="upload-box d-flex justify-content-center align-items-center">
+                            <i id="upload-icon" class="fa-solid fa-arrow-up-from-bracket"></i>
+                            <img src="" width="100" height="100" id="set-img" class="d-none" style="object-fit: cover;" alt="">
+                        </div>
+                        <p id="dp_error" class="error_message"></p>
+                        </label>
+                        
+                </div>`
+
+    }
     
   </script>
 <style>
-    .form-control{
-        background: #eaf9f8;
-    }
     .upload-box{
     width: 150px;
     height: 150px;
     border: 1px dashed black;
+    background-color: white;
 }
 </style>
 </html>

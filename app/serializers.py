@@ -90,3 +90,6 @@ class VehicleSerializer(serializers.ModelSerializer):
         for image in images:
             models.VehicleImages.objects.create(vehicle=vehicle, image=image)
         return vehicle
+
+    def to_representation(self, instance):
+        return ListVehicleSerializer(instance).data

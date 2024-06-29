@@ -23,6 +23,7 @@ backofficeurl = [
     path("users/", backoffice.User.as_view(), name="users"),
     path("add-user/", backoffice.AddUser.as_view(), name="add-user"),
     path("vehicles/", backoffice.Vehicle.as_view(), name="vehicles"),
+    path("vehicles/<int:id>/", backoffice.Vehicle.as_view(), name="vehicles"),
     path("add-vehicle/", backoffice.AddVehicle.as_view(), name="add-vehicle"),
     path("edit-vehicle/<int:id>/", backoffice.ModifyVehicle.as_view(), name="edit-vehicle"),
     
