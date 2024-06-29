@@ -2,6 +2,7 @@ from django.utils import timesince, timezone
 from rest_framework import serializers
 
 from app import models, choices
+from project import settings
 
 
 def BuildTime(created_at):
@@ -55,25 +56,37 @@ class ListUserSerializer(serializers.ModelSerializer):
         exclude = ("password","is_staff", "is_superuser", "groups", "user_permissions")
         model = models.User
         
-
+class VehicleImagesSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    
+    def get_image(self, obj):
+        return obj.image.url
+    class Meta:
+        model = models.VehicleImages
+        fields = "__all__"
+        
 class ListVehicleSerializer(serializers.ModelSerializer):
     owner = ListUserSerializer()
+    images = serializers.SerializerMethodField()
+    status = serializers.CharField(source="get_status_display")
+    fuel_type = serializers.CharField(source="get_fuel_type_display")
+    transmission_type = serializers.CharField(source="get_transmission_type_display")
+    
+    def get_images(self, obj):
+        return VehicleImagesSerializer(models.VehicleImages.objects.filter(vehicle=obj), many=True).data
     class Meta:
         fields = "__all__"
         model = models.Vehicle
                 
 class VehicleSerializer(serializers.ModelSerializer):
+    images = serializers.ListField(child=serializers.ImageField())
     class Meta:
-        exclude = ("owner",)
+        exclude = ("owner","status")
         model = models.Vehicle
         
-    def validate_availability_dates_from(self, val):
-        if val < timezone.now().date():
-            raise serializers.ValidationError("Availability should greater than today")
-        return val
-    
-    def validate(self, attrs):
-        attrs = super().validate(attrs)
-        if attrs["availability_dates_from"] > attrs["availability_dates_to"]:
-            raise serializers.ValidationError("Availability date to should be greater than availability date from")
-        return attrs
+    def create(self, validated_data):
+        images = validated_data.pop("images")
+        vehicle = super().create(validated_data)
+        for image in images:
+            models.VehicleImages.objects.create(vehicle=vehicle, image=image)
+        return vehicle

@@ -30,36 +30,19 @@ class User(AbstractUser):
     
 class Vehicle(models.Model):
     owner = models.ForeignKey(User, verbose_name=_("User"), related_name="vehicles",on_delete=models.CASCADE)
-    make = models.CharField(max_length=50,)
-    model = models.CharField(max_length=50)
+    type = models.CharField(max_length=50)
+    number = models.CharField(max_length=150)
+    rent = models.FloatField()
+    lic_number = models.CharField(max_length=150)
+    res_id = models.CharField(max_length=150)
     year = models.IntegerField()
-    vin = models.CharField(max_length=17, unique=True)
-    license_plate_number = models.CharField(max_length=20, unique=True)
-    category = models.CharField(max_length=5, choices=choices.Category.choices)
-    number_of_seats = models.IntegerField()
-    transmission_type = models.CharField(max_length=9, choices=choices.Transmission.choices)
-    fuel_type = models.CharField(max_length=8, choices=choices.Fuel.choices)
+    make = models.CharField(max_length=150)
+    model = models.CharField(max_length=150)
+    fuel_type = models.CharField(max_length=1, choices=choices.Fuel.choices, default=choices.Fuel.DIESEL)
+    transmission_type = models.CharField(max_length=1, choices=choices.Transmission.choices, default=choices.Transmission.MANUAL)
     mileage = models.IntegerField()
-    color = models.CharField(max_length=50)
-    rental_price_per_day = models.DecimalField(max_digits=10, decimal_places=2)
-    location_pickup = models.CharField(max_length=255)
-    location_dropoff = models.CharField(max_length=255)
-    availability_dates_from = models.DateField(null=True, blank=True)
-    availability_dates_to = models.DateField(null=True, blank=True)
-    additional_features = models.TextField(blank=True, null=True)
-    
-    # Insurance Information
-    
-    insurance_provider = models.CharField(max_length=255, null=True, blank=True)
-    insurance_policy_number = models.CharField(max_length=255, null=True, blank=True)
-    insurance_expiry_date = models.DateField(null=True, blank=True)
-    coverage_type = models.CharField(max_length=13, choices=choices.CoverageType.choices)
-    coverage_limits = models.CharField(max_length=15, choices=choices.CoverageLimit.choices)
-    deductible_amount = models.PositiveIntegerField()
-    roadside_assistance = models.BooleanField(default=False)
-    rental_car_reimbursement = models.BooleanField(default=False)
-    additional_insured_drivers = models.BooleanField(default=False)
+    status = models.CharField(choices=choices.VehicleStatus.choices, default=choices.VehicleStatus.INREVIEW, max_length=1)
 
-    def __str__(self):
-        return f"{self.make} {self.model} ({self.year})"
-
+class VehicleImages(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    image = models.FileField(upload_to="vehicle_images/")

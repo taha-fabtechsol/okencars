@@ -114,20 +114,6 @@
                 </div>
                 </div>
             </div>
-            <div class="row mt-3" id="images_row">
-                
-                <div class="col-2">
-                        <h6 class="fw-bold">Upload Image</h6>
-                        <label for="fileImg" class="form-label">
-                          <div id="uploadBox" class="upload-box d-flex justify-content-center align-items-center">
-                            <i id="upload-icon" class="fa-solid fa-arrow-up-from-bracket"></i>
-                            <img src="" width="100" height="100" id="set-img" class="d-none" style="object-fit: cover;" alt="">
-                        </div>
-                        <p id="dp_error" class="error_message"></p>
-                        </label>
-                        <input multiple onchange="loadFile2(event)" class="form-control shadow-none" type="file" name="dp" id="fileImg" style="width: 200px;" accept="image/*">
-                </div>
-            </div>
         </form>
     </div>
 
@@ -144,33 +130,10 @@
     document.getElementById("save-btn").addEventListener("click", () =>{
         document.getElementById("vehicleForm").submit()
     })
-    function loadFile2(event) {
-        if (event.target.files.length > 4) {
-        alert("You can only upload a maximum of 4 files.");
-        event.target.value = ""; // Clear the input
-        return
-    }
-    const imagesRow = document.getElementById("images_row");
-    
-    for (let index = 0; index < event.target.files.length; index++) {
-        const file =  URL.createObjectURL(event.target.files[index])
-        
-            imagesRow.appendChild("afterbegin" ,`
-            <div class="col-2">
-            <img src="${file}" width="150px" height="150px" style="object-fit: cover;" alt="">
-        </div>
-        `)
-    }}
-    
   </script>
 <style>
     .form-control{
         background: #eaf9f8;
     }
-    .upload-box{
-    width: 150px;
-    height: 150px;
-    border: 1px dashed black;
-}
 </style>
 </html>

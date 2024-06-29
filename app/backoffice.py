@@ -165,4 +165,22 @@ class AddVehicle(View):
         request=request, template_name=self.template_name, context={'form': form }
     )
     
+    
+    
+@method_decorator(login_required, name='dispatch')
+class ModifyVehicle(View):
+    template_name = "backoffice/editvehicle.html"
+    context = {}
+    
+    def get(self, request, id):
+        context = self.context
+        context["vehicle"] = models.Vehicle.objects.get(id=id)
+        return render(
+            request=request, template_name=self.template_name
+        )
+    
+    def post(self, request):
+        return render(
+        request=request, template_name=self.template_name, context={'form': form }
+    )
             

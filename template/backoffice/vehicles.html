@@ -19,12 +19,14 @@
                                 <thead>
                                     <tr>
                                         <th class="p-3 text-nowrap text-black border-0">Owner</th>
+                                        <th class="p-3 text-nowrap text-black border-0">category</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Vin</th>
+                                        <th class="p-3 text-nowrap text-black border-0">License Plate Number</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Daily Rent</th>
                                         <th class="p-3 text-nowrap text-black border-0">Make</th>
                                         <th class="p-3 text-nowrap text-black border-0">Model</th>
                                         <th class="p-3 text-nowrap text-black border-0">Year</th>
-                                        <th class="p-3 text-nowrap text-black border-0">Vin</th>
-                                        <th class="p-3 text-nowrap text-black border-0">License Plate Number</th>
-                                        <th class="p-3 text-nowrap text-black border-0">category</th>
+                                        <th class="p-3 text-nowrap text-black border-0">Status</th>
                                         <th class="p-3 text-nowrap text-black border-0">Action</th>
                                     </tr>
                                 </thead>
@@ -33,6 +35,20 @@
                                     <tr>
                                         <td>
                                             <p class="mb-0 ms-2">{% if user == vehicle.owner %} You {% else %} {{vehicle.owner.first_name}} {% endif %}</p>
+                                        </td>
+
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.type}}</p>
+                                        </td>
+
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.number}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.lic_number}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ms-2">{{vehicle.rent}} $</p>
                                         </td>
                                         <td>
                                             <p class="mb-0 ms-2">{{vehicle.make}}</p>
@@ -43,19 +59,14 @@
                                         <td>
                                             <p class="mb-0 ms-2">{{vehicle.year}}</p>
                                         </td>
+                                        
                                         <td>
-                                            <p class="mb-0 ms-2">{{vehicle.vin}}</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0 ms-2">{{vehicle.license_plate_number}}</p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0 ms-2">{{vehicle.category}}</p>
+                                            <p class="mb-0 ms-2">{{vehicle.get_status_display}}</p>
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <Button class="btn btn-success">Modify</Button>
-                                                <div><Button class="btn btn-danger">Delete</Button>
+                                                <a href="/back-office/edit-vehicle/{{vehicle.id}}/" class="btn btn-success">Modify</a>
+                                                <Button class="btn btn-danger">Delete</Button>
                                             </div>
                                         </td>
                                     </tr>

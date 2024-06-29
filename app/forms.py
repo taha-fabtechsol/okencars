@@ -39,4 +39,4 @@ class NewUserForm(forms.ModelForm):
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = models.Vehicle
-        exclude = ("owner",)
+        exclude = ("owner","status")

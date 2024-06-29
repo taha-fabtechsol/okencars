@@ -43,7 +43,7 @@
           <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
           <!-- start -->
           <li class="item">
-            <div href="#" class="nav_link submenu_item">
+            <div onclick="window.location.href = '/back-office/dashboard/'" class="nav_link submenu_item">
               <span class="navlink_icon">
                 <i class="bx bx-home-alt"></i>
               </span>
@@ -56,7 +56,7 @@
 
           <!-- duplicate this li tag if you want to add or remove  navlink with submenu -->
           <!-- start -->
-          <li class="item">
+          <!-- <li class="item">
             <div href="#" class="nav_link submenu_item">
               <span class="navlink_icon">
                 <i class="bx bx-grid-alt"></i>
@@ -71,7 +71,7 @@
               <a href="#" class="nav_link sublink">Nav Sub Link</a>
               <a href="#" class="nav_link sublink">Nav Sub Link</a>
             </ul>
-          </li>
+          </li> -->
           <!-- end -->
         </ul>
 
@@ -80,11 +80,11 @@
           <!-- duplicate these li tag if you want to add or remove navlink only -->
           <!-- Start -->
           <li class="item">
-            <a href="#" class="nav_link">
+            <a href="/back-office/vehicles/" class="nav_link">
               <span class="navlink_icon">
                 <i class="bx bxs-magic-wand"></i>
               </span>
-              <span class="navlink">Magic build</span>
+              <span class="navlink">Vehicles</span>
             </a>
           </li>
           <!-- End -->
@@ -163,8 +163,6 @@
         </div>
       </div>
     </nav>
-    <!-- JavaScript -->
-    <script src="script.js"></script>
   </body>
 </html>
 
@@ -292,7 +290,7 @@ body.dark {
   content: "Dashboard";
 }
 .menu_editor::before {
-  content: "Editor";
+  content: "Transportation";
 }
 .menu_setting::before {
   content: "Setting";

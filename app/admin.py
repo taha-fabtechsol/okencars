@@ -5,6 +5,8 @@ from app import models
 
 
 admin.site.register(models.User)
+admin.site.register(models.Vehicle)
+admin.site.register(models.VehicleImages)
 # class UserAdmin1(UserAdmin):
 #     fieldsets = UserAdmin.fieldsets + (
 #         (

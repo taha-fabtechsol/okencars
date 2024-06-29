@@ -14,14 +14,18 @@ class Category(models.TextChoices):
     # Add more categories as needed
 
 class Transmission(models.TextChoices):
-    AUTOMATIC = 'Automatic', 'Automatic'
-    MANUAL = 'Manual', 'Manual'
+    AUTOMATIC = 'A', 'Automatic'
+    MANUAL = 'M', 'Manual'
 
 class Fuel(models.TextChoices):
-    GASOLINE = 'Gasoline', 'Gasoline'
-    DIESEL = 'Diesel', 'Diesel'
-    ELECTRIC = 'Electric', 'Electric'
+    GASOLINE = 'G', 'Gasoline'
+    DIESEL = 'D', 'Diesel'
+    ELECTRIC = 'E', 'Electric'
     
+class VehicleStatus(models.TextChoices):
+    APPROVED = "A", "Approved"
+    REJECTED = "R", "Rejected"
+    INREVIEW = "I", "In Review"
 class CoverageType(models.TextChoices):
     COMPREHENSIVE = 'Comprehensive', 'Comprehensive'
     COLLISION = 'Collision', 'Collision'
