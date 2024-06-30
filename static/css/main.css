@@ -1354,8 +1354,12 @@ body {
 }
 
 .active {
-    background-color: #FA7F71;
+    background-color: var(--blue-color);
     border-radius: .7rem;
+    margin: 10px 0;
+}
+.active span, .active i{
+    color: white;
 }
 .side_tab:hover{
     background-color: #FA7F71;

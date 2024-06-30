@@ -1,137 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Vehicle Form</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Card</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .vehicle-card {
+      width: 100%;
+      max-width: 350px;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .vehicle-card img {
+      width: 100%;
+      height: auto;
+    }
+    .vehicle-info {
+      padding: 15px;
+    }
+    .vehicle-info h5 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .info-section {
+      margin-bottom: 15px;
+    }
+    .info-section p {
+      margin: 0;
+      font-weight: bold;
+    }
+    .info-section span {
+      display: block;
+      color: #555;
+    }
+    .person-section {
+      background-color: #e9f7f9;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .person-section span {
+      color: #333;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container mt-5">
-        <h2>Add Vehicle</h2>
-        <p>We'll employ these requirement details to accurately track your Vehicle.</p>
 
-        <form>
-            <div class="card p-4">
-                <h4>Vehicle Details</h4>
-                <div class="form-group row">
-                    <div class="col-md-4">
-                        <label for="vehicleType">Vehicle Type</label>
-                        <select class="form-control" id="vehicleType">
-                            <option>Car</option>
-                            <!-- Add other options as needed -->
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="vehicleNumber">Vehicle Number</label>
-                        <input type="text" class="form-control" id="vehicleNumber" value="ZB 592 YB">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="purchasingDate">Purchasing Date</label>
-                        <input type="date" class="form-control" id="purchasingDate" value="2023-01-26">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label for="licenseNumber">License Number</label>
-                        <input type="text" class="form-control" id="licenseNumber" value="5468 5879 45821">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="registrationID">Registration ID</label>
-                        <input type="text" class="form-control" id="registrationID" value="FYDR4698798D98">
-                    </div>
-                </div>
-                <h4>Vehicle Image</h4>
-                <div class="form-group row">
-                    <div class="col-md-3">
-                        <img src="path-to-image1.jpg" class="img-thumbnail" alt="Vehicle Image 1">
-                    </div>
-                    <div class="col-md-3">
-                        <img src="path-to-image2.jpg" class="img-thumbnail" alt="Vehicle Image 2">
-                    </div>
-                    <div class="col-md-3">
-                        <img src="path-to-image3.jpg" class="img-thumbnail" alt="Vehicle Image 3">
-                    </div>
-                    <div class="col-md-3">
-                        <div class="upload-container">
-                            <label for="uploadImage" class="upload-label">Upload Or Paste Image<br>jpg/jpeg</label>
-                            <input type="file" class="form-control-file" id="uploadImage">
-                        </div>
-                    </div>
-                </div>
-                <small>Please upload a minimum of four images to proceed. Each image should not exceed a maximum size of 10 MB.</small>
-                <h4>Assign Manager & Driver</h4>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label for="selectManager">Select Manager</label>
-                        <select class="form-control" id="selectManager">
-                            <option>Sarah Al Mazrouei</option>
-                            <!-- Add other options as needed -->
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="selectDriver">Select Driver</label>
-                        <select class="form-control" id="selectDriver">
-                            <option>#ED-001 | Ayman Abu Dayya</option>
-                            <!-- Add other options as needed -->
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Save Vehicle</button>
-            </div>
-        </form>
+<div class="container mt-5">
+  <div class="vehicle-card mx-auto">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <img src="/static/img/1.png" alt="Vehicle Image">
+      </div>
+      <div class="col-12 vehicle-info">
+        <h5 class="text-center">GHA-1309_0003</h5>
+        <div class="info-section">
+          <p>Vehicle ID:</p>
+          <span>#SZ15E0010</span>
+        </div>
+        <div class="info-section">
+          <p>Vehicle Type:</p>
+          <span>Car</span>
+        </div>
+        <div class="info-section">
+          <p>Purchasing Date:</p>
+          <span>26-01-2023</span>
+        </div>
+        <div class="info-section">
+          <p>Licensee Number:</p>
+          <span>5468 5879 45821</span>
+        </div>
+        <div class="info-section">
+          <p>Registration ID:</p>
+          <span>FYDR4698798D98</span>
+        </div>
+        <div class="info-section">
+          <p>Current Manager:</p>
+          <div class="person-section">
+            <span>Sarah Al Mazrouei</span>
+          </div>
+        </div>
+        <div class="info-section">
+          <p>Current Driver:</p>
+          <div class="person-section">
+            <span>ED-001 | Ayman Abu Dayya</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
-<style>
-    body {
-    background-color: #F5F5F5;
-    font-family: Arial, sans-serif;
-}
-
-h2 {
-    color: #333;
-}
-
-.card {
-    background-color: #fff;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.img-thumbnail {
-    height: 150px;
-    object-fit: cover;
-}
-
-.upload-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    height: 150px;
-    text-align: center;
-}
-
-.upload-label {
-    color: #666;
-    cursor: pointer;
-}
-
-form {
-    background-color: #E8F0F2;
-    border-radius: 8px;
-    padding: 20px;
-}
-
-</style>

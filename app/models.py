@@ -5,23 +5,22 @@ from django.utils.translation import gettext as _
 from app import choices
 
 class User(AbstractUser):
-    owner = models.ForeignKey("self", on_delete=models.SET_NULL, null=True)
+    owner = models.ForeignKey("self", on_delete=models.SET_NULL, null=True ,blank=True)
     email = models.EmailField(_("Email"), unique=True, null=False)
     first_name = models.CharField(_('first name'), max_length=150)
     last_name = models.CharField(_('last name'), max_length=150)
-    dp = models.ImageField(upload_to="users_dp/",)
+    dp = models.ImageField(upload_to="users_dp/", default="/user-icon.png")
     role = models.CharField(max_length=20, choices=choices.UserRole.choices, default=choices.UserRole.DRIVER)
     phone_number = models.CharField(max_length=25, blank=True, null=True)
-    street_address = models.CharField(max_length=255, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    state_province = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
     postal_code = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=100, blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
+    dob = models.DateField(blank=True, null=True)
     license_number = models.CharField(max_length=50, blank=True, null=True)
     license_issuing_country = models.CharField(max_length=100, blank=True, null=True)
-    license_expiry_date = models.DateField(blank=True, null=True)
-    
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
@@ -37,6 +36,7 @@ class Vehicle(models.Model):
     res_id = models.CharField(max_length=150)
     year = models.IntegerField()
     make = models.CharField(max_length=150)
+    no_of_seats = models.IntegerField()
     model = models.CharField(max_length=150)
     fuel_type = models.CharField(max_length=1, choices=choices.Fuel.choices, default=choices.Fuel.DIESEL)
     transmission_type = models.CharField(max_length=1, choices=choices.Transmission.choices, default=choices.Transmission.MANUAL)
@@ -45,4 +45,4 @@ class Vehicle(models.Model):
 
 class VehicleImages(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    image = models.FileField(upload_to="vehicle_images/")
+    image = models.ImageField(upload_to="vehicle_images/")

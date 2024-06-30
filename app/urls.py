@@ -7,6 +7,7 @@ from app import views, backoffice
 router = routers.DefaultRouter()
 router.register(r"user", views.UserViewSet, "user")
 router.register(r"vehicle", views.VehicleViewSet, "vehicle")
+# router.register(r"vehicle-imges", views.VehicleImageViewSet, "vehicle-imges")
 
 router.register(r"logout", views.LogoutView, "logout")
 
@@ -21,11 +22,14 @@ backofficeurl = [
     path("logout/", backoffice.logout_request.as_view(), name="logout"),    
     path("dashboard/", backoffice.Dashboard.as_view(), name="dashboard"),
     path("users/", backoffice.User.as_view(), name="users"),
+    path("users/<int:id>/", backoffice.User.as_view(), name="users"),
     path("add-user/", backoffice.AddUser.as_view(), name="add-user"),
+    path("edit-user/<int:id>/", backoffice.EditUser.as_view(), name="edit-user"),
     path("vehicles/", backoffice.Vehicle.as_view(), name="vehicles"),
     path("vehicles/<int:id>/", backoffice.Vehicle.as_view(), name="vehicles"),
     path("add-vehicle/", backoffice.AddVehicle.as_view(), name="add-vehicle"),
     path("edit-vehicle/<int:id>/", backoffice.ModifyVehicle.as_view(), name="edit-vehicle"),
+    path("view-vehicle/<int:id>/", backoffice.ViewVehicle.as_view(), name="view-vehicle"),
     
 ]
 

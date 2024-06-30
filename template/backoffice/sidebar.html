@@ -20,7 +20,7 @@
   <body>
     <!-- navbar -->
     <nav class="navbar">
-      <div class="logo_item">
+      <div onclick="window.location.href = '/back-office/dashboard/'" class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
         <img src="{% static 'img/main-logo.png' %}" alt=""></i>OkenCars
       </div>
@@ -31,7 +31,7 @@
         <i class="bi bi-grid"></i>
         <!-- <i class='bx bx-sun' id="darkLight"></i> -->
         <i class='bx bx-bell' ></i>
-        <img src="{{user.dp.url}}" alt="" class="profile" />
+        <a href="/back-office/edit-user/{{user.id}}/"> <img src="{{user.dp.url}}" alt="" class="profile" /> </a>
       </div>
     </nav>
 
@@ -42,7 +42,7 @@
           <div class="menu_title menu_dahsboard"></div>
           <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
           <!-- start -->
-          <li class="item">
+          <li class="item" id="dashboard">
             <div onclick="window.location.href = '/back-office/dashboard/'" class="nav_link submenu_item">
               <span class="navlink_icon">
                 <i class="bx bx-home-alt"></i>
@@ -79,25 +79,25 @@
           <div class="menu_title menu_editor"></div>
           <!-- duplicate these li tag if you want to add or remove navlink only -->
           <!-- Start -->
-          <li class="item">
+          <li class="item" id="vehicles">
             <a href="/back-office/vehicles/" class="nav_link">
               <span class="navlink_icon">
-                <i class="bx bxs-magic-wand"></i>
+                <i class="fa-solid fa-car"></i>
               </span>
               <span class="navlink">Vehicles</span>
             </a>
           </li>
           <!-- End -->
 
-          <li class="item">
-            <a href="#" class="nav_link">
+          <li class="item" id="users">
+            <a href="/back-office/users/" class="nav_link">
               <span class="navlink_icon">
-                <i class="bx bx-loader-circle"></i>
+                <i class="fa-solid fa-user"></i>
               </span>
-              <span class="navlink">Filters</span>
+              <span class="navlink">Users</span>
             </a>
           </li>
-          <li class="item">
+          <!-- <li class="item">
             <a href="#" class="nav_link">
               <span class="navlink_icon">
                 <i class="bx bx-filter"></i>
@@ -148,7 +148,7 @@
               <span class="navlink">Features</span>
             </a>
           </li>
-        </ul>
+        </ul> -->
 
         <!-- Sidebar Open / Close -->
         <div class="bottom_content">
@@ -156,8 +156,8 @@
             <span> Expand</span>
             <i class='bx bx-log-in' ></i>
           </div>
-          <div class="bottom collapse_sidebar">
-            <span> Collapse</span>
+          <div onclick="window.location.href = '/back-office/logout/'" class="bottom ">
+            <span> Logout</span>
             <i class='bx bx-log-out'></i>
           </div>
         </div>
@@ -487,5 +487,9 @@ if (window.innerWidth < 768) {
   sidebar.classList.add("close");
 } else {
   sidebar.classList.remove("close");
+}
+
+function activeTab(id) {
+  document.getElementById(id).classList.add("active")
 }
 </script>

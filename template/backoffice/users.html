@@ -6,9 +6,22 @@
                 <div class="area-height">
                     <div class="container-fluid">
                         <div class=" mt-4 table-responsive main-table2">
-                            <div class="d-flex justify-content-end mb-2 p-2">
-                            <a href="/back-office/add-user/" class="btn btn-secondary text-white">Add User</a>
-                        </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <h1>Users List</h1>
+                                    <p>Your all users are listed bellow</p>
+                                </div>
+                                <div class="p-3">
+                                    <a href="/back-office/add-user/" class="btn-secondary btn text-white">Add User</a>
+                                </div>
+                    </div>
+                        {% if messages %}
+                            <div class="messages mt-2 mb-2">
+                                {% for message in messages %}
+                                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                             <table class="table " style="border-collapse: unset;">
                                 <thead>
                                     <tr>
@@ -40,8 +53,8 @@
                                         <td>{{user.phone_number}}</td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <Button class="btn btn-success">Modify</Button>
-                                                <Button class="btn btn-danger">Delete</Button>
+                                                <a href="/back-office/edit-user/{{user.id}}/" class="btn btn-success">Modify</a>
+                                                <a href="/back-office/users/{{user.id}}/" class="btn btn-danger">Delete</a>
                                             </div>
                                         </td>
                                     </tr>

@@ -11,22 +11,21 @@ class NewUserForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = [
+            "password",
             "email",
             "first_name",
             "last_name",
             "dp",
             "role",
             "phone_number",
-            "street_address",
+            "address",
             "city",
-            "state_province",
+            "state",
             "postal_code",
             "country",
-            "date_of_birth",
+            "dob",
             "license_number",
             "license_issuing_country",
-            "license_expiry_date",
-            "password",
         ]
         
     def save(self, commit=True):

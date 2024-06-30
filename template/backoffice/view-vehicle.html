@@ -1,0 +1,56 @@
+{% load static %} {% include 'backoffice/sidebar.html' %}
+
+<div class="right-content ms-auto px-md-4" style="background-color: #e5f1f0 !important;">
+    <div class="area-height">
+        <div class="container mt-5">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="">
+                    <h2>Vehicle Details</h2>
+                </div>
+                <div class="buttons d-flex gap-2">
+                    <a href="/back-office/view-vehicle/{{vehicle.id}}/" class="btn btn-danger"> <i class="fa-solid fa-trash"></i> Delete</a>
+                    <a href="/back-office/edit-vehicle/{{vehicle.id}}/" class="btn btn-secondary"> <i class="fa-solid fa-pen-to-square"></i> Edit Vehicle</a>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-4 border bg-white">
+                    <div class="row  p-2 mb-5 pt-4">
+                        <div class="col-9">
+                            <img src="/static/img/1.png" width="100%" class="rounded-2" height="100%" alt="">
+                        </div>
+                        <div class="col-2 d-flex flex-column gap-2">
+                            <img src="/static/img/1.png" class="rounded-2" width="60px" height="60px%" alt="">
+                            <img src="/static/img/1.png" class="rounded-2" width="60px" height="60px%" alt="">
+                            <img src="/static/img/1.png" class="rounded-2" width="60px" height="60px%" alt="">
+                            <img src="/static/img/1.png" class="rounded-2" width="60px" height="60px%" alt="">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="div">
+                        <div class="proprites d-flex align-items-center">
+                            <h4>Vehicle Type: </h4> <p class="mb-1">{{vehicle.type}}</p>
+                        </div>
+                        <div class="proprites d-flex align-items-center">
+                            <h4>Licensee Number: </h4> <p class="mb-1">{{vehicle.number}}</p>
+                        </div>
+                        <div class="proprites d-flex align-items-center">
+                            <h4>Registration ID: </h4> <p class="mb-1">{{vehicle.res_id}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<script>
+    activeTab("vehicles")
+    
+  </script>
+
+
+</html>

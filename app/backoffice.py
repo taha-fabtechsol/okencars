@@ -85,8 +85,15 @@ class User(View):
     template_name = "backoffice/users.html"
     context = {}
     
-    def get(self, request):
+    def get(self, request, id=None):
         context = self.context
+        if id:
+            user = models.User.objects.get(id=id)
+            if request.user == user:
+                messages.error(request, "Cannot delete your own account.")
+            else:
+                user.delete()
+                return redirect("/back-office/users/")
         user = models.User.objects.all().exclude(id=request.user.id)
         if request.user.role == choices.UserRole.MANAGER:
             user = user.filter(owner=request.user)
@@ -121,6 +128,44 @@ class AddUser(View):
 
         return render(request=request, template_name=self.template_name, context={'form': form })
 
+@method_decorator(login_required, name='dispatch')        
+class EditUser(View):
+    template_name = "backoffice/edituser.html"
+    context = {}
+    
+    def get(self, request, id):
+        context = self.context
+        context["obj"] = models.User.objects.get(id=id)
+        return render(
+            request=request, template_name=self.template_name, context=self.context
+        )
+        
+    def post(self, request, id):
+        context = self.context
+        try:
+            user = models.User.objects.get(id=id)
+            keys = list(request.POST.keys())
+            for key in keys:
+                if request.POST.get(key):
+                    if key == "password":
+                        user.set_password(request.POST.get(key))
+                    else:
+                        setattr(user, key, request.POST.get(key))
+            user.save()
+            if user == request.user:
+                login(request, user)
+            if "dp" in request.FILES.keys() and request.FILES.get("dp"):
+                print("image")
+                user.dp = request.FILES.get("dp")
+                user.save(update_fields=["dp"])
+            messages.success(request, "User updated successfully")
+            return redirect(f"/back-office/edit-user/{user.id}/")
+        except:
+            return render(
+                request=request, template_name=self.template_name, context=self.context
+            )
+
+    
 @method_decorator(login_required, name='dispatch')        
 class Vehicle(View):
     template_name = "backoffice/vehicles.html"
@@ -184,13 +229,44 @@ class ModifyVehicle(View):
     
     def get(self, request, id):
         context = self.context
-        context["vehicle"] = models.Vehicle.objects.get(id=id)
+        vehicle = models.Vehicle.objects.get(id=id)
+        context["vehicle"] = vehicle
+        context["images"] = models.VehicleImages.objects.filter(vehicle=vehicle)
+        context["vehicle_types"] = choices.Category.choices
+        context["transmission_types"] = choices.Transmission.choices
+        context["fuel_types"] = choices.Fuel.choices
         return render(
-            request=request, template_name=self.template_name
+            request=request, template_name=self.template_name, context=self.context
         )
     
-    def post(self, request):
-        return render(
-        request=request, template_name=self.template_name
-    )
+    def post(self, request, id):
+        context = self.context
+        try:
+            vehicle = models.Vehicle.objects.get(id=id)
+            keys = list(request.POST.keys())
+            keys.remove("csrfmiddlewaretoken")
+            for key in keys:
+                setattr(vehicle, key, request.POST.get(key))
+            vehicle.save()
+            if "images" in request.FILES.keys():
+                models.VehicleImages.objects.create(vehicle=vehicle, image=request.FILES["images"])
+            messages.success(request, "Vehicle updated successfully")
+            return redirect(f"/back-office/edit-vehicle/{vehicle.id}/")
+        except:
+            return render(
+                request=request, template_name=self.template_name, context=self.context
+            )
             
+@method_decorator(login_required, name='dispatch')
+class ViewVehicle(View):
+    template_name = "backoffice/view-vehicle.html"
+    context = {}
+    
+    def get(self, request, id):
+        context = self.context
+        vehicle = models.Vehicle.objects.get(id=id)
+        context["vehicle"] = vehicle
+        context["images"] = models.VehicleImages.objects.filter(vehicle=vehicle)
+        return render(
+            request=request, template_name=self.template_name, context=self.context
+        )

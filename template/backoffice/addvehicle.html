@@ -53,7 +53,7 @@
                 </div>
                 </div>
 
-                <div class="col-6 mt-3">
+                <div class="col-4 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Licensee Number</label>
                     <input required type="text" name="lic_number" id="" class="form-control">
@@ -61,10 +61,19 @@
                 </div>
 
 
-                <div class="col-6 mt-3">
+                <div class="col-4 mt-3">
                     <div class="d-flex flex-column">
                     <label for="">Registration ID</label>
                     <input required type="text" name="res_id" id="" class="form-control">
+                </div>
+                </div>
+
+                
+
+                <div class="col-4 mt-3">
+                    <div class="d-flex flex-column">
+                    <label for="">No of seats</label>
+                    <input required type="number" name="no_of_seats" id="" class="form-control">
                 </div>
                 </div>
 
@@ -150,7 +159,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <script>
-    // activeTab("vehicles")
+    activeTab("vehicles")
     let all_uploaded_images = document.getElementsByClassName("uploaded-images")
     function loadFile2(event) {
         if (event.target.files.length > 4) {

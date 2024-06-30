@@ -57,10 +57,6 @@ class ListUserSerializer(serializers.ModelSerializer):
         model = models.User
         
 class VehicleImagesSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-    
-    def get_image(self, obj):
-        return obj.image.url
     class Meta:
         model = models.VehicleImages
         fields = "__all__"
@@ -73,7 +69,7 @@ class ListVehicleSerializer(serializers.ModelSerializer):
     transmission_type = serializers.CharField(source="get_transmission_type_display")
     
     def get_images(self, obj):
-        return VehicleImagesSerializer(models.VehicleImages.objects.filter(vehicle=obj), many=True).data
+        return VehicleImagesSerializer(models.VehicleImages.objects.filter(vehicle=obj), many=True, context={'request': self.context["request"]}).data
     class Meta:
         fields = "__all__"
         model = models.Vehicle
@@ -91,5 +87,14 @@ class VehicleSerializer(serializers.ModelSerializer):
             models.VehicleImages.objects.create(vehicle=vehicle, image=image)
         return vehicle
 
+    def update(self, instance, validated_data):
+        images = validated_data.pop("images")
+        vehicle = super().update(instance, validated_data)
+        for image in images:
+            models.VehicleImages.objects.create(vehicle=vehicle, image=image)
+        return vehicle
+
+        
+        
     def to_representation(self, instance):
-        return ListVehicleSerializer(instance).data
+        return ListVehicleSerializer(instance, context={'request': self.context["request"]}).data

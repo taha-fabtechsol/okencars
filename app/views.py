@@ -133,3 +133,12 @@ class VehicleViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+        
+
+# class VehicleImageViewSet(viewsets.ModelViewSet):
+#     serializer_class = serializers.VehicleImagesSerializer
+    
+#     def get_queryset(self):
+#         user = self.request.user
+#         queryset = models.VehicleImages.objects.all()
+#         return queryset

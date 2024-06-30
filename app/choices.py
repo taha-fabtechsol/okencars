@@ -8,10 +8,11 @@ class UserRole(models.TextChoices):
     DRIVER = 'Driver', 'Driver'
     
 class Category(models.TextChoices):
-    SEDAN = 'Sedan', 'Sedan'
-    SUV = 'SUV', 'SUV'
-    TRUCK = 'Truck', 'Truck'
-    # Add more categories as needed
+    SUV = "SUV", "SUV"
+    Sedan = "Sedan", "Sedan"
+    Truck = "Truck", "Truck"
+    Jeep = "Jeep", "Jeep"
+    Sports = "Sports", "Sports"
 
 class Transmission(models.TextChoices):
     AUTOMATIC = 'A', 'Automatic'
