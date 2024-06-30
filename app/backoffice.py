@@ -178,7 +178,7 @@ class Vehicle(View):
             return redirect("/back-office/vehicles/")
         vehicles = models.Vehicle.objects.all()
         if request.user.role == choices.UserRole.MANAGER:
-            vehicles = vehicles.filter(owner=request.user)
+            vehicles = vehicles.filter(Q(owner=request.user) | Q(owner__role=choices.UserRole.OWNER))
         context["vehicles"] = vehicles
         return render(
             request=request, template_name=self.template_name, context=context
@@ -207,6 +207,7 @@ class AddVehicle(View):
         if form.is_valid():
             vehicle = form.save(commit=False)
             vehicle.owner = request.user
+            vehicle.status = choices.VehicleStatus.APPROVED
             vehicle.save()
             for image in request.FILES.getlist("images"):
                 models.VehicleImages.objects.create(vehicle=vehicle, image=image)
@@ -247,6 +248,7 @@ class ModifyVehicle(View):
             keys.remove("csrfmiddlewaretoken")
             for key in keys:
                 setattr(vehicle, key, request.POST.get(key))
+            vehicle.status = choices.VehicleStatus.APPROVED
             vehicle.save()
             if "images" in request.FILES.keys():
                 models.VehicleImages.objects.create(vehicle=vehicle, image=request.FILES["images"])
@@ -258,15 +260,14 @@ class ModifyVehicle(View):
             )
             
 @method_decorator(login_required, name='dispatch')
-class ViewVehicle(View):
+class ApproveRejectVehicle(View):
     template_name = "backoffice/view-vehicle.html"
     context = {}
     
-    def get(self, request, id):
+    def get(self, request, id, status):
         context = self.context
         vehicle = models.Vehicle.objects.get(id=id)
-        context["vehicle"] = vehicle
-        context["images"] = models.VehicleImages.objects.filter(vehicle=vehicle)
-        return render(
-            request=request, template_name=self.template_name, context=self.context
-        )
+        vehicle.status = status
+        vehicle.save()
+        
+        return redirect("/back-office/vehicles/")

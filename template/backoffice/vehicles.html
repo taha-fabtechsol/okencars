@@ -65,7 +65,16 @@
                                         </td>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <a href="/back-office/view-vehicle/{{vehicle.id}}/" class="btn btn-info">View</a>
+                                                {% if not vehicle.owner == user %}
+                                                {% if vehicle.status == "I" %}
+                                                <a href="/back-office/change-vehicle-status/{{vehicle.id}}/A/" class="btn btn-info">
+                                                    Approve
+                                                </a>
+                                                <a href="/back-office/change-vehicle-status/{{vehicle.id}}/R/" class="btn btn-danger">
+                                                    Reject
+                                                </a>
+                                                {% endif %}
+                                                {% endif %}
                                                 <a href="/back-office/edit-vehicle/{{vehicle.id}}/" class="btn btn-success">Modify</a>
                                                 <a href="/back-office/vehicles/{{vehicle.id}}/" class="btn btn-danger">Delete</a>
                                             </div>
