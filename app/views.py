@@ -165,10 +165,9 @@ class VehicleViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         queryset = models.Vehicle.objects.all()
-        return queryset
-        # if user.role == choices.UserRole.OWNER:
-        #     return queryset.filter(owner=user)
-        # return queryset.filter(status=choices.VehicleStatus.APPROVED)
+        if user.role == choices.UserRole.OWNER:
+            return queryset.filter(owner=user)
+        return queryset.filter(status=choices.VehicleStatus.APPROVED)
     
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
