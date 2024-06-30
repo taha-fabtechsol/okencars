@@ -266,3 +266,8 @@ MESSAGE_TAGS = {
     messages.ERROR: "alert-danger",
 }
 
+##### Stripe 
+
+
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
+STRIPE = os.environ.get("STRIPE")

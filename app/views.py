@@ -22,11 +22,17 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.decorators import action
 
 from app import filters, models, serializers, utils, choices, permissions
 from app.forms import NewUserForm
 from app.token import account_activation_token
 from project import settings
+
+import stripe
+import json
+
+stripe.api_key = settings.STRIPE
 
 
 def activate(request, uidb64, token):
@@ -117,6 +123,39 @@ class LogoutView(viewsets.ModelViewSet):
 class VehicleViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.VehicleSerializer
     
+    @action(detail=False, methods=["post"])
+    def checkout(self, request):
+        user = request.user
+        vehicle = models.Vehicle.objects.filter(id=request.data.get("vehicle")).last()
+        date_from = request.data.get("date_from")
+        date_to = request.data.get("date_to")
+        days = request.data.get("days")
+        session = stripe.checkout.Session.create(
+            mode="payment",
+            customer_email=user.email,
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "USD",
+                        "unit_amount": int(vehicle.rent * 100 ) * days,
+                        "product_data": {
+                            "name": "Car Booking",
+                        },
+                    },
+                    "quantity": 1,
+                },
+            ],
+            metadata={
+                "type": "CarRent" ,
+                "user": user.id ,
+            },
+            success_url=f"{settings.FRONTEND_ADDRESS}/success/",
+            cancel_url=f"{settings.FRONTEND_ADDRESS}/cancel/",
+        )
+        return Response({"url":session.url})
+        
+        
     def get_serializer_class(self):
         if self.request.method == "GET":
             return serializers.ListVehicleSerializer
